@@ -1,0 +1,29 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Rule Engine</title>
+</head>
+<body>
+    <h1>Create Rule</h1>
+    <form id="rule-form">
+        <input type="text" id="rule-input" placeholder="Enter rule string" required>
+        <button type="submit">Create Rule</button>
+    </form>
+
+    <script>
+        document.getElementById('rule-form').addEventListener('submit', async function (e) {
+            e.preventDefault();
+            const rule = document.getElementById('rule-input').value;
+            const response = await fetch('/create_rule', {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json',
+                },
+                body: JSON.stringify({ rule }),
+            });
+            const result = await response.json();
+            alert('Rule Created with ID: ' + result.rule_id);
+        });
+    </script>
+</body>
+</html>
